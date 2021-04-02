@@ -1,0 +1,42 @@
+.checkbox {
+    background: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 3em;
+    display: flex;
+    align-items: center;
+    border: 1px solid;
+    padding: .5vh 1vh;
+    transition: 0.3s;
+}
+
+.name {
+    padding-left: 1vh;
+}
+
+.checked {
+    background-color: #f1f8ff;
+    border-color: #1675e0;
+}
+
+.unchecked {
+    border-color: #d9d9d9;
+}
+
+.checkedName {
+    color: #1675e0;
+}
+
+.uncheckedName {
+    color: #8e8e93;
+}
+
+.checkbox:hover {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.checkbox:active {
+    transition: none;
+    background-color: #f1f8ff;
+    border-color: #c8e1ff;
+}

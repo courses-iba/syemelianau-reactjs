@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdClose, MdEdit, MdCheck } from 'react-icons/md';
 
 import styles from './Card.module.css';
 import Divider from './Divider';
 
-const Card = ({ title, children, edit }) => {
+const Card = ({ title, children, readonly, edit }) => {
     const iconProps = { color: '#586069', size: 24 };
     const randomColor = () => Math.floor(Math.random() * 5) + 1;
     const calcHeight = () => {
@@ -18,7 +18,7 @@ const Card = ({ title, children, edit }) => {
     const [card, setCard] = useState({ title, content: children });
     const [height, setHeight] = useState(calcHeight());
 
-    const toggleChecked = () => setChecked(isEdit || checked ? null : randomColor());
+    const toggleChecked = () => setChecked((!readonly && isEdit) || checked ? null : randomColor());
     const toggleEdit = e => {
         e?.stopPropagation();
         setChecked(null);
@@ -36,34 +36,40 @@ const Card = ({ title, children, edit }) => {
         toggleEdit();
     };
 
+    useEffect(() => {
+        readonly && setIsEdit(false);
+    }, [readonly]);
+
     return (
         <div className={[styles.card, styles[`card${checked}`]].join(' ')} onClick={toggleChecked}>
             <div className={styles.header}>
-                {isEdit ? (
+                {!readonly && isEdit ? (
                     <input
                         className={styles.input}
                         value={card.title}
                         onChange={changeTitle}
                     />
                 ) : <span className={styles.title}>{title}</span>}
-                <div className={styles.buttons}>
-                    {isEdit && (
+                {!readonly && (
+                    <div className={styles.buttons}>
+                        {isEdit && (
+                            <button
+                                className={styles.button}
+                                onClick={editCard}
+                                children={<MdCheck {...iconProps} />}
+                            />
+                        )}
                         <button
                             className={styles.button}
-                            onClick={editCard}
-                            children={<MdCheck {...iconProps} />}
+                            onClick={toggleEdit}
+                            children={isEdit ? <MdClose {...iconProps} /> : <MdEdit {...iconProps} />}
                         />
-                    )}
-                    <button
-                        className={styles.button}
-                        onClick={toggleEdit}
-                        children={isEdit ? <MdClose {...iconProps} /> : <MdEdit {...iconProps} />}
-                    />
-                </div>
+                    </div>
+                )}
             </div>
             <Divider />
             <div className={styles.content}>
-                {isEdit ? (
+                {!readonly && isEdit ? (
                     <textarea
                         style={{ height: `${height}em` }}
                         className={styles.input}
