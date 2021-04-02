@@ -5,9 +5,9 @@
     flex-direction: column;
     border: 1px solid #e1e4e8;
     border-radius: 6px;
-    width: 10vw;
-    min-width: 10em;
-    max-width: 20em;
+    width: 16vw;
+    min-width: 16em;
+    max-width: 26em;
     transition: 0.3s;
 }
 
@@ -16,17 +16,28 @@
 }
 
 .card:active {
-    transition: none;
-    background-color: #f1f8ff;
-    border-color: #c8e1ff;
+    border-color: #c0c2c6;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
 .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-weight: bold;
 }
 
 .header, .content {
     padding: 0 5%;
+}
+
+.content, .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.title {
+    white-space: nowrap;
 }
 
 .card1 {
@@ -52,4 +63,46 @@
 .card5 {
     background-color: #f5f0ff;
     border-color: #d1bcf9;
+}
+
+.buttons {
+    display: flex;
+}
+
+.button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 3em;
+    width: 3em;
+    border-radius: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    transition: 0.3s;
+    margin-left: 3px;
+}
+
+.button:hover {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.button:active {
+    transition: none;
+    background-color: #f1f8ff;
+    border: 1px solid #c8e1ff;
+}
+
+.button:focus {
+    border: 1px solid #c8e1ff;
+}
+
+.input {
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    outline: none;
+    resize: none;
 }
