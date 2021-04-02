@@ -4,8 +4,7 @@ import Content from './components/Content';
 import Card from './components/Card';
 
 const App = () => {
-    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
-    const data = array.map((value, index) => ({
+    const data = [...Array(18).keys()].map((value, index) => ({
         id: index,
         title: `Card Title ${value}`,
         content: `
@@ -13,7 +12,7 @@ const App = () => {
             Some quick example text
             to build on the card title
             and make up the bulk of the card's content.
-        `
+        `.replace(/\s+/g, ' ').trim()
     }));
 
     const cards = data.map(({ id, title, content }) => (
