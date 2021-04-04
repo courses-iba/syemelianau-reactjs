@@ -1,0 +1,14 @@
+.header {
+    height: 6vh;
+    min-height: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+    border-bottom: 1px solid #e1e4e8;
+
+    -webkit-box-shadow: 0 0 6px 1px rgba(41, 41, 41, .25);
+    -moz-box-shadow: 0 0 6px 1px rgba(41, 41, 41, .25);
+    box-shadow: 0 0 6px 1px rgba(41, 41, 41, .25);
+}
