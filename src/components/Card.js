@@ -4,7 +4,7 @@ import { MdClose, MdEdit, MdCheck } from 'react-icons/md';
 import styles from './Card.module.css';
 import Divider from './Divider';
 
-const Card = ({ id, title, children, edit }) => {
+const Card = ({ title, children, edit }) => {
     const iconProps = { color: '#586069', size: 24 };
     const randomColor = () => Math.floor(Math.random() * 5) + 1;
     const calcHeight = () => {
@@ -15,7 +15,7 @@ const Card = ({ id, title, children, edit }) => {
 
     const [checked, setChecked] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
-    const [card, setCard] = useState({ id, title, content: children });
+    const [card, setCard] = useState({ title, content: children });
     const [height, setHeight] = useState(calcHeight());
 
     const toggleChecked = () => setChecked(isEdit || checked ? null : randomColor());
@@ -23,7 +23,7 @@ const Card = ({ id, title, children, edit }) => {
         e?.stopPropagation();
         setChecked(null);
         setIsEdit(!isEdit);
-        setCard({ id, title, content: children });
+        setCard({ title, content: children });
     };
     const changeTitle = event => setCard({ ...card, title: event.target.value });
     const changeContent = event => {

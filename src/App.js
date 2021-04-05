@@ -17,15 +17,14 @@ const App = () => {
         `.replace(/\s+/g, ' ').trim()
     })));
 
-    const editCard = card => setData(data.map(value => value.id === card.id ? card : value));
+    const editCard = (id, card) => setData(data.map(value => value.id === id ? { id, ...card } : value));
 
     const cards = data.map(({ id, title, content }) => (
         <Card
             key={id}
-            id={id}
             title={title}
             children={content}
-            edit={editCard}
+            edit={card => editCard(id, card)}
         />
     ));
 
