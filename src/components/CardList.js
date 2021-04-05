@@ -8,16 +8,14 @@ import Card from './Card';
 const CardList = ({ placeholder }) => {
     const { cards, loading, loader } = useContext(Context);
 
+    const load = <GridLoader {...loader} />;
     const content = cards.length
         ? cards.map(card => <Card key={card.id} {...card} />)
         : <span className={empty}>{placeholder}</span>;
 
     return (
         <div className={list}>
-            {loading
-                ? <GridLoader {...loader} />
-                : content
-            }
+            {loading ? load : content}
         </div>
     );
 };
