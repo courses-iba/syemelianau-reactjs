@@ -1,25 +1,17 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
+import { getPokemons } from '../services/pokemons.service';
 import { randomState } from '../utils';
 
 const Context = createContext({});
 
 const Provider = ({ children }) => {
+    const loader = { color: '#36d7b7', css: { padding: '3vh' } };
+
     const [readonly, setReadonly] = useState(false);
-    const [cards, setCards] = useState([...Array(18).keys()].map(value => ({
-        id: uuid(),
-        content: {
-            title: `Card Title ${value}`,
-            description: `
-                ${value}.
-                Some quick example text
-                to build on the card title
-                and make up the bulk of the card's content.
-            `.replace(/\s+/g, ' ').trim()
-        },
-        checked: null
-    })));
+    const [cards, setCards] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const handleReadonly = () => setReadonly(!readonly);
     const handleEdit = newCard => setCards(cards.map(card => card.id === newCard.id ? newCard : card));
@@ -33,10 +25,26 @@ const Provider = ({ children }) => {
         checked: randomState()
     }]);
 
+    useEffect(() => {
+        getPokemons().then(response => {
+            setCards(response.data.slice(0, 15).map(pokemon => ({
+                id: pokemon.Number,
+                content: {
+                    title: pokemon.Name,
+                    description: pokemon.About
+                },
+                checked: null
+            })));
+            setLoading(false);
+        });
+    }, []);
+
     return (
         <Context.Provider value={{
             cards,
             readonly,
+            loading,
+            loader,
             handleAdd,
             handleDelete,
             handleEdit,
