@@ -11,25 +11,28 @@ const App = () => {
     const [readonly, setReadonly] = useState(false);
     const [data, setData] = useState([...Array(18).keys()].map((value, index) => ({
         id: index,
-        title: `Card Title ${value}`,
-        content: `
-            ${value}.
-            Some quick example text
-            to build on the card title
-            and make up the bulk of the card's content.
-        `.replace(/\s+/g, ' ').trim()
+        content: {
+            title: `Card Title ${value}`,
+            description: `
+                ${value}.
+                Some quick example text
+                to build on the card title
+                and make up the bulk of the card's content.
+            `.replace(/\s+/g, ' ').trim()
+        }
     })));
 
-    const editCard = (id, card) => setData(data.map(value => value.id === id ? { id, ...card } : value));
+    const editCard = id => (
+        content => setData(data.map(value => value.id === id ? { id, content } : value))
+    );
     const toggleReadonly = () => setReadonly(!readonly);
 
-    const cards = data.map(({ id, title, content }) => (
+    const cards = data.map(({ id, content }) => (
         <Card
             key={id}
-            title={title}
-            children={content}
+            content={content}
             readonly={readonly}
-            edit={card => editCard(id, card)}
+            edit={editCard(id)}
         />
     ));
 
