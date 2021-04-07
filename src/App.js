@@ -21,7 +21,7 @@ const App = () => {
     })));
 
     const editCard = (id, card) => setData(data.map(value => value.id === id ? { id, ...card } : value));
-    const handleChange = () => setReadonly(!readonly);
+    const toggleReadonly = () => setReadonly(!readonly);
 
     const cards = data.map(({ id, title, content }) => (
         <Card
@@ -40,7 +40,7 @@ const App = () => {
                 <Checkbox
                     name="Readonly"
                     checked={readonly}
-                    onChange={handleChange}
+                    onChange={toggleReadonly}
                 />
             </Menu>
             <Content>{cards}</Content>

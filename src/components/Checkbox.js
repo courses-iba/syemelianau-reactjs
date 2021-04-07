@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 
 import styles from './Checkbox.module.css';
@@ -8,8 +9,8 @@ const Checkbox = ({ name, checked, onChange }) => {
         size: 24
     };
 
-    const checkbox = [styles.checkbox, checked ? styles.checked : styles.unchecked].join(' ');
-    const text = [styles.name, checked ? styles.checkedName : styles.uncheckedName].join(' ');
+    const checkbox = classNames(styles.checkbox, checked ? styles.checked : styles.unchecked);
+    const text = classNames(styles.name, checked ? styles.checkedName : styles.uncheckedName);
     const icon = checked ? <MdCheckBox {...iconProps} /> : <MdCheckBoxOutlineBlank {...iconProps} />;
 
     return (

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { MdClose, MdEdit, MdCheck } from 'react-icons/md';
 
 import styles from './Card.module.css';
@@ -18,7 +19,7 @@ const Card = ({ title, children, readonly, edit }) => {
     const [card, setCard] = useState({ title, content: children });
     const [height, setHeight] = useState(calcHeight());
 
-    const toggleChecked = () => setChecked((!readonly && isEdit) || checked ? null : randomColor());
+    const toggleChecked = () => setChecked(isEdit || checked ? null : randomColor());
     const toggleEdit = e => {
         e?.stopPropagation();
         setChecked(null);
@@ -41,7 +42,7 @@ const Card = ({ title, children, readonly, edit }) => {
     }, [readonly]);
 
     return (
-        <div className={[styles.card, styles[`card${checked}`]].join(' ')} onClick={toggleChecked}>
+        <div className={classNames(styles.card, styles[`card${checked}`])} onClick={toggleChecked}>
             <div className={styles.header}>
                 {!readonly && isEdit ? (
                     <input
