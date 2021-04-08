@@ -9,7 +9,7 @@ import Checkbox from './components/Checkbox';
 
 const App = () => {
     const [readonly, setReadonly] = useState(false);
-    const [data, setData] = useState([...Array(18).keys()].map((value, index) => ({
+    const [mockCards, setMockCards] = useState([...Array(18).keys()].map((value, index) => ({
         id: index,
         content: {
             title: `Card Title ${value}`,
@@ -22,17 +22,16 @@ const App = () => {
         }
     })));
 
-    const editCard = id => (
-        content => setData(data.map(value => value.id === id ? { id, content } : value))
-    );
+    const editCard = (id, newContent) =>
+        setMockCards(mockCards.map(value => value.id === id ? { id, content: newContent } : value));
     const toggleReadonly = () => setReadonly(!readonly);
 
-    const cards = data.map(({ id, content }) => (
+    const cards = mockCards.map(({ id, content }) => (
         <Card
             key={id}
             content={content}
             readonly={readonly}
-            edit={editCard(id)}
+            onEdit={newContent => editCard(id, newContent)}
         />
     ));
 
