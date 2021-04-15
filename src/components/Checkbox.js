@@ -1,23 +1,46 @@
-import classNames from 'classnames';
+import styled from 'styled-components';
 import { MdCheckBox, MdCheckBoxOutlineBlank } from 'react-icons/md';
 
-import styles from './Checkbox.module.css';
+const StyledCheckbox = styled.button(({ checked }) => ({
+    outline: 'none',
+    cursor: 'pointer',
+    borderRadius: '3em',
+    display: 'flex',
+    alignItems: 'center',
+    border: '1px solid',
+    padding: '.5vh 1vh',
+    transition: '.3s',
+    backgroundColor: checked ? '#f1f8ff' : '#ffffff',
+    borderColor: checked ? '#1675e0' : '#d9d9d9',
+
+    '&:hover': {
+        backgroundColor: 'rgba(0, 0, 0, .1)'
+    },
+
+    '&:active': {
+        transition: 'none',
+        backgroundColor: '#f1f8ff',
+        borderColor: '#c8e1ff'
+    }
+}));
+
+const StyledText = styled.span(({ checked }) => ({
+    paddingLeft: '1vh',
+    color: checked ? '#1675e0' : '#8e8e93'
+}));
 
 const Checkbox = ({ name, checked, onChange }) => {
-    const iconProps = {
-        color: checked ? '#1675e0' : '#8e8e93',
-        size: 24
-    };
+    const iProps = { size: 24 };
 
-    const checkbox = classNames(styles.checkbox, checked ? styles.checked : styles.unchecked);
-    const text = classNames(styles.name, checked ? styles.checkedName : styles.uncheckedName);
-    const icon = checked ? <MdCheckBox {...iconProps} /> : <MdCheckBoxOutlineBlank {...iconProps} />;
+    const icon = checked
+        ? <MdCheckBox {...iProps} color={'#1675e0'} />
+        : <MdCheckBoxOutlineBlank {...iProps} color={'#8e8e93'} />;
 
     return (
-        <button className={checkbox} onClick={onChange}>
+        <StyledCheckbox checked={checked} onClick={onChange}>
             {icon}
-            <span className={text}>{name}</span>
-        </button>
+            <StyledText checked={checked}>{name}</StyledText>
+        </StyledCheckbox>
     );
 };
 
