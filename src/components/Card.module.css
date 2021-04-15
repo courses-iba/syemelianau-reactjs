@@ -27,11 +27,11 @@
     font-weight: bold;
 }
 
-.header, .content {
+.header, .body {
     padding: 0 5%;
 }
 
-.content, .title {
+.body, .title {
     overflow: hidden;
     text-overflow: ellipsis;
 }

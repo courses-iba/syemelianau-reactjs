@@ -1,21 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import classNames from 'classnames';
 import { MdClose, MdEdit, MdCheck } from 'react-icons/md';
 
 import styles from './Card.module.css';
 import Divider from './Divider';
 
-const Card = ({ title, children, edit }) => {
+const Card = ({ content, readonly, onEdit }) => {
     const iconProps = { color: '#586069', size: 24 };
     const randomColor = () => Math.floor(Math.random() * 5) + 1;
     const calcHeight = () => {
         const min = 2;
-        const max = card.content.length / 20;
+        const max = newContent.description.length / 20;
         return max < min ? min : max;
     };
 
     const [checked, setChecked] = useState(null);
     const [isEdit, setIsEdit] = useState(false);
-    const [card, setCard] = useState({ title, content: children });
+    const [newContent, setNewContent] = useState(content);
     const [height, setHeight] = useState(calcHeight());
 
     const toggleChecked = () => setChecked(isEdit || checked ? null : randomColor());
@@ -23,55 +24,68 @@ const Card = ({ title, children, edit }) => {
         e?.stopPropagation();
         setChecked(null);
         setIsEdit(!isEdit);
-        setCard({ title, content: children });
+        setNewContent(content);
     };
-    const changeTitle = event => setCard({ ...card, title: event.target.value });
+    const changeTitle = event => setNewContent({ ...newContent, title: event.target.value });
     const changeContent = event => {
-        setCard({ ...card, content: event.target.value });
+        setNewContent({ ...newContent, description: event.target.value });
         setHeight(calcHeight());
     };
     const editCard = e => {
         e?.stopPropagation();
-        edit(card);
+        onEdit(newContent);
         toggleEdit();
     };
 
-    return (
-        <div className={[styles.card, styles[`card${checked}`]].join(' ')} onClick={toggleChecked}>
+    useEffect(() => {
+        readonly && setIsEdit(false);
+    }, [readonly]);
+
+    const staticCard = (
+        <div>
             <div className={styles.header}>
-                {isEdit ? (
-                    <input
-                        className={styles.input}
-                        value={card.title}
-                        onChange={changeTitle}
-                    />
-                ) : <span className={styles.title}>{title}</span>}
+                <span className={styles.title}>{content.title}</span>
+            </div>
+            <Divider />
+            <div className={styles.body}>{content.description}</div>
+        </div>
+    );
+
+    const actionCard = isEdit ? (
+        <div>
+            <div className={styles.header}>
+                <input className={styles.input} value={newContent.title} onChange={changeTitle} />
                 <div className={styles.buttons}>
-                    {isEdit && (
-                        <button
-                            className={styles.button}
-                            onClick={editCard}
-                            children={<MdCheck {...iconProps} />}
-                        />
-                    )}
-                    <button
-                        className={styles.button}
-                        onClick={toggleEdit}
-                        children={isEdit ? <MdClose {...iconProps} /> : <MdEdit {...iconProps} />}
-                    />
+                    <button className={styles.button} onClick={editCard} children={<MdCheck {...iconProps} />} />
+                    <button className={styles.button} onClick={toggleEdit} children={<MdClose {...iconProps} />} />
                 </div>
             </div>
             <Divider />
-            <div className={styles.content}>
-                {isEdit ? (
-                    <textarea
-                        style={{ height: `${height}em` }}
-                        className={styles.input}
-                        value={card.content}
-                        onChange={changeContent}
-                    />
-                ) : children}
+            <div className={styles.body}>
+                <textarea
+                    style={{ height: `${height}em` }}
+                    className={styles.input}
+                    value={newContent.description}
+                    onChange={changeContent}
+                />
             </div>
+        </div>
+    ) : (
+        <div>
+            <div className={styles.header}>
+                <span className={styles.title}>{content.title}</span>
+                <div className={styles.buttons}>
+                    <button className={styles.button} onClick={toggleEdit} children={<MdEdit {...iconProps} />} />
+                </div>
+            </div>
+            <Divider />
+            <div className={styles.body}>{content.description}</div>
+        </div>
+    );
+
+    return (
+        <div className={classNames(styles.card, styles[`card${checked}`])} onClick={toggleChecked}>
+            {readonly ? staticCard : actionCard}
         </div>
     );
 };
