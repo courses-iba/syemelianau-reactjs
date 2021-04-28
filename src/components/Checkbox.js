@@ -30,11 +30,9 @@ const StyledText = styled.span(({ checked }) => ({
 }));
 
 const Checkbox = ({ name, checked, onChange }) => {
-    const iProps = { size: 24 };
-
     const icon = checked
-        ? <MdCheckBox {...iProps} color={'#1675e0'} />
-        : <MdCheckBoxOutlineBlank {...iProps} color={'#8e8e93'} />;
+        ? <MdCheckBox color="#1675e0" />
+        : <MdCheckBoxOutlineBlank color="#8e8e93" />;
 
     return (
         <StyledCheckbox checked={checked} onClick={onChange}>
