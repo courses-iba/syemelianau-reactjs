@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { IconContext } from 'react-icons';
 
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const iconContext = { color: '#586069', size: 24 };
+
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <IconContext.Provider value={iconContext}>
+            <App />
+        </IconContext.Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );
