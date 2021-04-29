@@ -11,10 +11,14 @@ import Body from './Body';
 const Card = ({ content, checked, readonly, onEdit, onCheck }) => {
     const randomState = () => Math.floor(Math.random() * 5) + 1;
 
-    const [isEdit, setIsEdit] = useState(false);
+    const [isEdit, setIsEdit] = useState(checked);
     const [newContent, setNewContent] = useState(content);
 
-    const toggleChecked = () => onCheck(isEdit || checked ? null : randomState());
+    const toggleChecked = () => {
+        if (!(isEdit && checked)) {
+            onCheck(isEdit || checked ? null : randomState());
+        }
+    };
     const toggleEdit = e => {
         e?.stopPropagation();
         checked && onCheck(null);
