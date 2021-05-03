@@ -7,6 +7,7 @@ import { iButton } from '../../styles/Button.module.css';
 import Divider from '../Divider';
 import Header from './Header';
 import Body from './Body';
+import cardLoad from './CardLoad';
 
 const Card = ({ content, checked, readonly, onEdit, onCheck }) => {
     const randomState = () => Math.floor(Math.random() * 5) + 1;
@@ -67,4 +68,4 @@ const Card = ({ content, checked, readonly, onEdit, onCheck }) => {
     );
 };
 
-export default Card;
+export default cardLoad(Card);
