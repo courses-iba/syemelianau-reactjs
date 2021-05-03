@@ -1,19 +1,20 @@
-import { list } from './CardList.module.css';
+import { useContext } from 'react';
+
+import { list, empty } from './CardList.module.css';
+import { Context } from '../context';
 import Card from './Card';
 
-const CardList = ({ cards, readonly, editCard, checkCard }) => (
-    <div className={list}>
-        {cards.map(({ id, content, checked }) => (
-            <Card
-                key={id}
-                content={content}
-                checked={checked}
-                readonly={readonly}
-                onEdit={newContent => editCard(id, newContent)}
-                onCheck={newCheck => checkCard(id, newCheck)}
-            />
-        ))}
-    </div>
-);
+const CardList = ({ placeholder }) => {
+    const { cards } = useContext(Context);
+
+    return (
+        <div className={list}>
+            {cards.length
+                ? cards.map(card => <Card key={card.id} {...card} />)
+                : <span className={empty}>{placeholder}</span>
+            }
+        </div>
+    );
+};
 
 export default CardList;

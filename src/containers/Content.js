@@ -1,7 +1,10 @@
 import { content } from './Content.module.css';
+import CardList from '../components/CardList';
 
-const Content = ({ children }) => (
-    <div className={content}>{children}</div>
+const Content = () => (
+    <div className={content}>
+        <CardList placeholder="Cards not found" />
+    </div>
 );
 
 export default Content;

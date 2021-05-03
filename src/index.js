@@ -4,6 +4,7 @@ import { IconContext } from 'react-icons';
 
 import './index.css';
 import App from './App';
+import Provider from './context';
 import reportWebVitals from './reportWebVitals';
 
 const iconContext = { color: '#586069', size: 24 };
@@ -11,7 +12,9 @@ const iconContext = { color: '#586069', size: 24 };
 ReactDOM.render(
     <React.StrictMode>
         <IconContext.Provider value={iconContext}>
-            <App />
+            <Provider>
+                <App />
+            </Provider>
         </IconContext.Provider>
     </React.StrictMode>,
     document.getElementById('root')

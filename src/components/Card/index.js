@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import classNames from 'classnames';
+import { useContext, useEffect, useState } from 'react';
 import { MdClose, MdEdit, MdCheck } from 'react-icons/md';
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
 
 import styles from './Card.module.css';
 import { iButton } from '../../styles/Button.module.css';
@@ -8,28 +9,26 @@ import Divider from '../Divider';
 import Header from './Header';
 import Body from './Body';
 import cardLoad from './CardLoad';
+import { Context } from '../../context';
+import { randomState } from '../../utils';
 
-const Card = ({ content, checked, readonly, onEdit, onCheck }) => {
-    const randomState = () => Math.floor(Math.random() * 5) + 1;
+const Card = props => {
+    const { content, checked } = props;
+    const { readonly, handleEdit } = useContext(Context);
 
     const [isEdit, setIsEdit] = useState(checked);
     const [newContent, setNewContent] = useState(content);
 
     const toggleChecked = () => {
         if (!(isEdit && checked)) {
-            onCheck(isEdit || checked ? null : randomState());
+            handleEdit({ ...props, checked: isEdit || checked ? null : randomState() });
         }
     };
     const toggleEdit = e => {
         e?.stopPropagation();
-        checked && onCheck(null);
-        setIsEdit(!isEdit);
+        handleEdit({ ...props, content: newContent, checked: null });
         setNewContent(content);
-    };
-    const editCard = e => {
-        e?.stopPropagation();
-        onEdit(newContent);
-        toggleEdit();
+        setIsEdit(!isEdit);
     };
 
     useEffect(() => {
@@ -47,7 +46,7 @@ const Card = ({ content, checked, readonly, onEdit, onCheck }) => {
             >
                 {isEdit ? (
                     <div className={styles.buttons}>
-                        <button className={iButton} onClick={editCard} children={<MdCheck />} />
+                        <button className={iButton} onClick={toggleEdit} children={<MdCheck />} />
                         <button className={iButton} onClick={toggleEdit} children={<MdClose />} />
                     </div>
                 ) : (
@@ -66,6 +65,12 @@ const Card = ({ content, checked, readonly, onEdit, onCheck }) => {
             />
         </div>
     );
+};
+
+Card.propTypes = {
+    id: PropTypes.string.isRequired,
+    content: PropTypes.object.isRequired,
+    checked: PropTypes.number
 };
 
 export default cardLoad(Card);
