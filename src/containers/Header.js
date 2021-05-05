@@ -1,7 +1,17 @@
-import styles from './Header.module.css';
+import { useContext } from 'react';
 
-const Header = ({ title }) => (
-    <header className={styles.header}>{title}</header>
-);
+import styles from './Header.module.css';
+import { Context } from '../context';
+
+const Header = ({ title }) => {
+    const { cards } = useContext(Context);
+
+    return (
+        <header className={styles.header}>
+            <span className={styles.title}>{title}</span>
+            <div className={styles.badge}>{cards.length}</div>
+        </header>
+    );
+};
 
 export default Header;

@@ -11,10 +11,12 @@ const cardLoad = Component => {
         const [loading, setLoading] = useState(true);
 
         useEffect(() => {
-            setTimeout(() => {
+            const timeout = setTimeout(() => {
                 setLoading(false);
             }, Math.floor(Math.random() * 3000));
-        }, []);
+
+            return () => clearTimeout(timeout);
+        });
 
         const component = <Component {...props} />;
         const load = (
