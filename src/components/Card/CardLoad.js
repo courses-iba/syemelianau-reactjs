@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import SyncLoader from 'react-spinners/SyncLoader';
 import classNames from 'classnames';
 
 import styles from './Card.module.css';
+import { Context } from '../../context';
 
 const cardLoad = Component => {
     return props => {
-        const loader = { color: '#36d7b7', css: { padding: '3vh' } };
-
+        const { loader } = useContext(Context);
         const [loading, setLoading] = useState(true);
 
         useEffect(() => {
