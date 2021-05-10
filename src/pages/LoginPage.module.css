@@ -17,20 +17,6 @@
     transition: 0.3s;
 }
 
-.element {
-    display: flex;
-    flex-direction: column;
-    padding: 1vh 0;
-}
-
-.input {
-    padding: 1vh;
-    background: none;
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    outline: none;
-}
-
 .button {
     cursor: pointer;
     transition: .3s;
