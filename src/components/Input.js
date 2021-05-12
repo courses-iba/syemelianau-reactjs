@@ -9,7 +9,7 @@ const Input = ({ name, type, value, placeholder, error, touched, onChange, onBlu
         <div className={styles.element}>
             <label htmlFor={name}>{label}: </label>
             <input
-                className={classNames(styles.input, touched && error && styles.error)}
+                className={classNames(styles.input, { [styles.error]: touched && error })}
                 name={name}
                 type={type}
                 value={value}
