@@ -1,10 +1,12 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { MdAdd, MdDelete } from 'react-icons/md';
 
 import styles from './Menu.module.css';
 import { iButton } from '../styles/Button.module.css';
-import { Context } from '../context';
+import { createCard, deleteCards } from '../redux/actions/card';
+import { updateReadonly } from '../redux/actions/page';
 import Checkbox from '../components/Checkbox';
 
 const Menu = () => {
@@ -15,12 +17,13 @@ const Menu = () => {
     ];
 
     const { pathname } = useLocation();
-    const {
-        readonly,
-        handleAdd,
-        handleDelete,
-        handleReadonly
-    } = useContext(Context);
+    const { readonly } = useSelector(state => state.pageReducer);
+
+    const dispatch = useDispatch();
+    const handleAdd = () => dispatch(createCard());
+    const handleDelete = () => dispatch(deleteCards());
+    const handleReadonly = () => dispatch(updateReadonly(!readonly));
+
     const [active, setActive] = useState(routes.findIndex(({ link }) => link === pathname));
 
     return (

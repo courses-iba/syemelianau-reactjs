@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import SyncLoader from 'react-spinners/SyncLoader';
 import classNames from 'classnames';
 
 import styles from './Card.module.css';
-import { Context } from '../../context';
 
 const cardLoad = Component => {
     return props => {
-        const { loader } = useContext(Context);
+        const { loader } = useSelector(state => state.pageReducer);
         const [loading, setLoading] = useState(true);
 
         useEffect(() => {

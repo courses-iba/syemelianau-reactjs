@@ -1,10 +1,9 @@
-import { useContext } from 'react';
+import { useSelector } from 'react-redux';
 
 import styles from './Header.module.css';
-import { Context } from '../context';
 
 const Header = ({ title }) => {
-    const { cards } = useContext(Context);
+    const { cards } = useSelector(state => state.cardReducer);
 
     return (
         <header className={styles.header}>
