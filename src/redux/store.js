@@ -5,12 +5,13 @@ import thunk from 'redux-thunk';
 
 import cardReducer from './reducers/card';
 import pageReducer from './reducers/page';
+import userReducer from './reducers/user';
 
 const persistConfig = {
     rootReducer: {
         key: 'rootReducer',
         storage,
-        blacklist: ['cardReducer', 'pageReducer']
+        whitelist: []
     },
     cardReducer: {
         key: 'cardReducer',
@@ -21,12 +22,18 @@ const persistConfig = {
         key: 'pageReducer',
         storage,
         whitelist: ['readonly']
+    },
+    userReducer: {
+        key: 'userReducer',
+        storage,
+        blacklist: ['admin']
     }
 };
 
 const rootReducer = combineReducers({
     cardReducer: persistReducer(persistConfig.cardReducer, cardReducer),
-    pageReducer: persistReducer(persistConfig.pageReducer, pageReducer)
+    pageReducer: persistReducer(persistConfig.pageReducer, pageReducer),
+    userReducer: persistReducer(persistConfig.userReducer, userReducer)
 });
 
 const logger = () => next => action => {

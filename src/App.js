@@ -11,21 +11,13 @@ import CardPage from './pages/CardPage';
 const App = () => (
     <BrowserRouter>
         <div className={styles.app}>
-            <Header title="React App" />
+            <Header title="Notes App" />
             <Menu />
             <Switch>
-                <Route exact path="/">
-                    <HomePage />
-                </Route>
-                <Route path="/login">
-                    <LoginPage />
-                </Route>
-                <Route path="/not-found">
-                    <NotFoundPage />
-                </Route>
-                <Route exact path="/card/:id">
-                    <CardPage />
-                </Route>
+                <Route exact path="/" component={HomePage} />
+                <Route path="/login" component={LoginPage} />
+                <Route path="/not-found" component={NotFoundPage} />
+                <Route exact path="/card/:id" component={CardPage} />
                 <Redirect to="/not-found" />
             </Switch>
         </div>
