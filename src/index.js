@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider as ReduxProvider } from 'react-redux';
+import { PersistGate as PersistProvider } from 'redux-persist/integration/react';
 import { IconContext } from 'react-icons';
 
 import './index.css';
 import App from './App';
-import Provider from './context';
+import { store, persistor } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 
 const iconContext = { color: '#586069', size: 24 };
@@ -12,9 +14,11 @@ const iconContext = { color: '#586069', size: 24 };
 ReactDOM.render(
     <React.StrictMode>
         <IconContext.Provider value={iconContext}>
-            <Provider>
-                <App />
-            </Provider>
+            <ReduxProvider store={store}>
+                <PersistProvider loading={null} persistor={persistor}>
+                    <App />
+                </PersistProvider>
+            </ReduxProvider>
         </IconContext.Provider>
     </React.StrictMode>,
     document.getElementById('root')

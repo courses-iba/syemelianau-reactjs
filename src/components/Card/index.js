@@ -1,4 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { MdClose, MdEdit, MdCheck } from 'react-icons/md';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -9,26 +11,33 @@ import Divider from '../Divider';
 import Header from './Header';
 import Body from './Body';
 import cardLoad from './CardLoad';
-import { Context } from '../../context';
+import { updateCard } from '../../redux/actions/card';
 import { randomState } from '../../utils';
 
 const Card = props => {
-    const { content, checked } = props;
-    const { readonly, handleEdit } = useContext(Context);
+    const { id, content, checked } = props;
+    const { readonly } = useSelector(state => state.pageReducer);
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const setCard = card => dispatch(updateCard(card));
 
     const [isEdit, setIsEdit] = useState(checked);
     const [newContent, setNewContent] = useState(content);
 
-    const toggleChecked = () => {
+    const handleChecked = () => {
         if (!(isEdit && checked)) {
-            handleEdit({ ...props, checked: isEdit || checked ? null : randomState() });
+            setCard({ ...props, checked: isEdit || checked ? null : randomState() });
         }
     };
-    const toggleEdit = e => {
+    const handleEdit = e => {
         e?.stopPropagation();
-        handleEdit({ ...props, content: newContent, checked: null });
+        setCard({ ...props, content: newContent, checked: null });
         setNewContent(content);
         setIsEdit(!isEdit);
+    };
+    const handleOpen = () => {
+        !isEdit && history.push(`/card/${id}`);
     };
 
     useEffect(() => {
@@ -36,7 +45,11 @@ const Card = props => {
     }, [readonly]);
 
     return (
-        <div className={classNames(styles.card, styles[`card${checked}`])} onClick={toggleChecked}>
+        <div
+            className={classNames(styles.card, styles[`card${checked}`])}
+            onClick={handleChecked}
+            onDoubleClick={handleOpen}
+        >
             <Header
                 title={content.title}
                 newTitle={newContent.title}
@@ -46,12 +59,12 @@ const Card = props => {
             >
                 {isEdit ? (
                     <div className={styles.buttons}>
-                        <button className={iButton} onClick={toggleEdit} children={<MdCheck />} />
-                        <button className={iButton} onClick={toggleEdit} children={<MdClose />} />
+                        <button className={iButton} onClick={handleEdit} children={<MdCheck />} />
+                        <button className={iButton} onClick={handleEdit} children={<MdClose />} />
                     </div>
                 ) : (
                     <div className={styles.buttons}>
-                        <button className={iButton} onClick={toggleEdit} children={<MdEdit />} />
+                        <button className={iButton} onClick={handleEdit} children={<MdEdit />} />
                     </div>
                 )}
             </Header>

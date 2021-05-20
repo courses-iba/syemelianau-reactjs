@@ -16,7 +16,7 @@ const LoginPage = () => {
             .required('Required'),
         password: Yup.string()
             .min(8, 'Too Short!')
-            .matches(/(\D\d)+/g, 'Must contain numbers & characters')
+            .matches(/(\D\d|\d\D)+/g, 'Must contain numbers & characters')
             .required('Required')
     });
 

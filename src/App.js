@@ -6,6 +6,7 @@ import Menu from './containers/Menu';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
+import CardPage from './pages/CardPage';
 
 const App = () => (
     <BrowserRouter>
@@ -21,6 +22,9 @@ const App = () => (
                 </Route>
                 <Route path="/not-found">
                     <NotFoundPage />
+                </Route>
+                <Route exact path="/card/:id">
+                    <CardPage />
                 </Route>
                 <Redirect to="/not-found" />
             </Switch>
