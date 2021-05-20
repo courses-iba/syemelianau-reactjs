@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
@@ -8,7 +9,6 @@ import styles from './LoginPage.module.css';
 import { element, input } from '../styles/Input.module.css';
 import Input from '../components/Input';
 import { login } from '../redux/reducers/user';
-import { useEffect } from 'react';
 
 const LoginPage = () => {
     const { email, password } = useSelector(state => state.userReducer);

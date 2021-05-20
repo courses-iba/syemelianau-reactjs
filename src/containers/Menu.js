@@ -30,12 +30,8 @@ const Menu = () => {
             {role && (!readonly || role === 'admin') && (
                 <div className={styles.panel}>
                     {role === 'admin' && <Checkbox name="Readonly" checked={readonly} onChange={handleReadonly} />}
-                    {(!readonly || role === 'admin') && (
-                        <div className={styles.panel}>
-                            <button className={iButton} onClick={handleAdd} children={<MdAdd {...iProps} />} />
-                            <button className={iButton} onClick={handleDelete} children={<MdDelete {...iProps} />} />
-                        </div>
-                    )}
+                    <button className={iButton} onClick={handleAdd} children={<MdAdd {...iProps} />} />
+                    <button className={iButton} onClick={handleDelete} children={<MdDelete {...iProps} />} />
                 </div>
             )}
             <div className={styles.menu}>
