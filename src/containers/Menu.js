@@ -13,7 +13,8 @@ const Menu = () => {
     const iProps = { color: '#1675e0' };
     const routes = [
         { link: '/', title: 'Home' },
-        { link: '/login', title: 'Login' },
+        { link: '/settings', title: 'Settings' },
+        { link: '/login', title: 'Login' }
     ];
 
     const { pathname } = useLocation();
@@ -37,8 +38,9 @@ const Menu = () => {
             <div className={styles.menu}>
                 {routes.map(({ link, title }) => {
                     const login = role && link === '/login';
+                    const settings = role !== 'admin' && link === '/settings';
 
-                    return (
+                    return settings || (
                         <Link
                             key={link}
                             className={link === pathname ? styles.active : null}
