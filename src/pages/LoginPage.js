@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 import classNames from 'classnames';
 import * as Yup from 'yup';
@@ -6,9 +8,12 @@ import * as Yup from 'yup';
 import styles from './LoginPage.module.css';
 import { element, input } from '../styles/Input.module.css';
 import Input from '../components/Input';
+import { login } from '../redux/reducers/user';
 
 const LoginPage = () => {
-    const [credentials, setCredentials] = useState({ email: '', password: '' });
+    const { email, password } = useSelector(state => state.userReducer);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const validationSchema = Yup.object().shape({
         email: Yup.string()
@@ -29,16 +34,18 @@ const LoginPage = () => {
         handleBlur,
         isSubmitting
     } = useFormik({
-        initialValues: credentials,
+        initialValues: { email, password },
         validationSchema,
         onSubmit: (values, { setSubmitting }) => {
-            setTimeout(() => {
-                setCredentials(values);
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-            }, 400);
+            dispatch(login(values));
+            setSubmitting(true);
+            history.push('/');
         }
     });
+
+    useEffect(() => {
+        email && history.push('/');
+    }, [email, history]);
 
     return (
         <div className={styles.login}>

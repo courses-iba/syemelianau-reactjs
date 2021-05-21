@@ -1,13 +1,22 @@
 .nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 1vh 2vw;
+    justify-content: center;
     border-bottom: 1px solid #e1e4e8;
 
     -webkit-box-shadow: 0 4px 2px -2px rgba(41, 41, 41, .25);
     -moz-box-shadow: 0 4px 2px -2px rgba(41, 41, 41, .25);
     box-shadow: 0 4px 2px -2px rgba(41, 41, 41, .25);
+}
+
+.nav > * {
+    flex: 1;
+}
+
+.menu, .panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .menu * {
