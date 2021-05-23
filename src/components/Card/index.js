@@ -14,7 +14,7 @@ import cardLoad from './CardLoad';
 import { updateCard } from '../../redux/actions/card';
 import { randomState } from '../../utils';
 
-const Card = props => {
+export const Card = props => {
     const { id, content, checked } = props;
     const { readonly } = useSelector(state => state.pageReducer);
 

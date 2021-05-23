@@ -1,19 +1,14 @@
 import { useState } from 'react';
 
 import styles from './Card.module.css';
+import { calcHeight } from '../../utils';
 
 const Body = ({ description, newDescription, readonly, isEdit, onEdit }) => {
-    const calcHeight = () => {
-        const min = 2;
-        const max = newDescription.length / 20;
-        return max < min ? min : max;
-    };
+    const [height, setHeight] = useState(calcHeight(newDescription?.length));
 
-    const [height, setHeight] = useState(calcHeight());
-
-    const changeContent = event => {
+    const handleChange = event => {
         onEdit(event.target.value);
-        setHeight(calcHeight());
+        setHeight(calcHeight(event.target.value.length));
     };
 
     const dynamicBody = isEdit ? (
@@ -21,7 +16,7 @@ const Body = ({ description, newDescription, readonly, isEdit, onEdit }) => {
             style={{ height: `${height}em` }}
             className={styles.input}
             value={newDescription}
-            onChange={changeContent}
+            onChange={handleChange}
         />
     ) : description;
 

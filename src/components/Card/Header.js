@@ -1,7 +1,7 @@
 import styles from './Card.module.css';
 
 const Header = ({ title, newTitle, readonly, isEdit, onEdit, children }) => {
-    const changeTitle = event => onEdit(event.target.value);
+    const handleChange = event => onEdit(event.target.value);
 
     const staticHeader = (
         <div className={styles.header}>
@@ -11,7 +11,7 @@ const Header = ({ title, newTitle, readonly, isEdit, onEdit, children }) => {
 
     const dynamicHeader = isEdit ? (
         <div className={styles.header}>
-            <input className={styles.input} value={newTitle} onChange={changeTitle} />
+            <input className={styles.input} value={newTitle} onChange={handleChange} />
             {children}
         </div>
     ) : (
@@ -21,7 +21,7 @@ const Header = ({ title, newTitle, readonly, isEdit, onEdit, children }) => {
         </div>
     );
 
-    return <div>{readonly ? staticHeader : dynamicHeader}</div>;
+    return readonly ? staticHeader : dynamicHeader;
 };
 
 export default Header;
