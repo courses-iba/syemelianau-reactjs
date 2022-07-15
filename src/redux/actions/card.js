@@ -2,12 +2,12 @@ import { v4 as uuid } from 'uuid';
 
 import { CARD_ACTIONS } from '../actions';
 import { randomState } from '../../utils';
-import { getPokemons } from '../../services/pokemons.service';
+import { getPokemon } from '../../services/pokemons.service';
 
 const getCards = () => {
     return dispatch => {
         dispatch(getCardsStart());
-        return getPokemons()
+        return getPokemon()
             .then(response => {
                 dispatch(getCardsSuccess(response.data.slice(0, 15).map(pokemon => ({
                     id: pokemon['Number'],
