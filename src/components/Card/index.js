@@ -30,11 +30,18 @@ export const Card = props => {
             setCard({ ...props, checked: isEdit || checked ? null : randomState() });
         }
     };
-    const handleEdit = e => {
+    const handleButtonPress = e => {
         e?.stopPropagation();
-        setCard({ ...props, content: newContent, checked: null });
-        setNewContent(content);
         setIsEdit(!isEdit);
+    };
+    const handleEdit = e => {
+        handleButtonPress(e);
+        setCard({ ...props, checked: null });
+        setNewContent(content);
+    };
+    const handleCheck = e => {
+        handleButtonPress(e);
+        setCard({ ...props, content: newContent, checked: null });
     };
     const handleOpen = () => {
         !isEdit && history.push(`/card/${id}`);
@@ -59,7 +66,7 @@ export const Card = props => {
             >
                 {isEdit ? (
                     <div className={styles.buttons}>
-                        <button className={iButton} onClick={handleEdit} children={<MdCheck />} />
+                        <button className={iButton} onClick={handleCheck} children={<MdCheck />} />
                         <button className={iButton} onClick={handleEdit} children={<MdClose />} />
                     </div>
                 ) : (

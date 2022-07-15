@@ -8,26 +8,10 @@ import pageReducer from './reducers/page';
 import userReducer from './reducers/user';
 
 const persistConfig = {
-    rootReducer: {
-        key: 'rootReducer',
-        storage,
-        whitelist: []
-    },
-    cardReducer: {
-        key: 'cardReducer',
-        storage,
-        whitelist: ['cards']
-    },
-    pageReducer: {
-        key: 'pageReducer',
-        storage,
-        whitelist: ['readonly']
-    },
-    userReducer: {
-        key: 'userReducer',
-        storage,
-        blacklist: ['admin']
-    }
+    rootReducer: { key: 'rootReducer', storage, whitelist: [] },
+    cardReducer: { key: 'cardReducer', storage, whitelist: ['cards'] },
+    pageReducer: { key: 'pageReducer', storage, whitelist: ['readonly'] },
+    userReducer: { key: 'userReducer', storage, blacklist: ['admin'] }
 };
 
 const rootReducer = combineReducers({

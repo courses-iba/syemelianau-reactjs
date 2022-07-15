@@ -13,7 +13,7 @@ const cardLoad = Component => {
         useEffect(() => {
             const timeout = setTimeout(() => {
                 setLoading(false);
-            }, Math.floor(Math.random() * 3000));
+            }, Math.floor(Math.random() * 1000));
 
             return () => clearTimeout(timeout);
         });

@@ -1,9 +1,7 @@
 import Content from '../containers/Content';
 
 const HomePage = () => (
-    <div>
-        <Content />
-    </div>
+    <Content />
 );
 
 export default HomePage;

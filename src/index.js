@@ -9,7 +9,7 @@ import App from './App';
 import { store, persistor } from './redux/store';
 import reportWebVitals from './reportWebVitals';
 
-const iconContext = { color: '#586069', size: 24 };
+const iconContext = { color: '#586069', size: '24' };
 
 ReactDOM.render(
     <React.StrictMode>
