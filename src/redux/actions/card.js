@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 import { CARD_ACTIONS } from '../actions';
 import { randomState } from '../../utils';
-import { getPokemon } from '../../services/pokemons.service';
+import { getPokemon } from '../../services/pokemon.service';
 
 const getCards = () => {
     return dispatch => {
